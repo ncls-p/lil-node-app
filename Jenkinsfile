@@ -4,7 +4,23 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('nclsp01')
         APP_NAME = "laly9999/lil-node-app"
     }
-    stages {
+    stages { 
+
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t nclsp01/flask:$BUILD_NUMBER .'
+            }
+        }
+        stage('login to dockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('push image') {
+            steps{
+                sh 'docker push nclsp01/flask:$BUILD_NUMBER'
+            }
+        }
             stage('SCM Checkout') {
         steps {
         git branch: 'main', url:
