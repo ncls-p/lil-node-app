@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('your-docker-credentials')
+        DOCKERHUB_CREDENTIALS = credentials('nclsp01')
         APP_NAME = "laly9999/lil-node-app"
     }
     stages {
